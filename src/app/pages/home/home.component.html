@@ -1,4 +1,5 @@
-
+<form [formGroup]="form">
+    <!-- FORMULARIO PARTE 1 -->
   <div class="container-fluid" [ngClass]="{'bg-container-mobil': isMobile,'bg-container-web': !isMobile}">
     <div class="d-flex justify-content-center" [ngClass]="{'flex-column': isMobile}">
       <div [ngClass]="{'form-mobil': isMobile,'form-c': !isMobile}">
@@ -75,3 +76,131 @@
       </div>
     </div>
   </div>
+
+    <!-- FORMULARIO PARTE 2 -->
+
+    <div class="container-fluid text-center pt-5" *ngIf="autos">
+        <h2>Selecciona tu auto</h2>
+    
+        <div class="row pt-5 pb-5">
+          <div class="col-md-6 pb-3">
+            <div class="card text-center">
+              <div class="card-header">
+                Titulo del servicio
+              </div>
+              <div class="card-body">
+             
+                <div class="d-flex flex-column">
+    
+                  <div class="p-2">
+                    <img src="/assets/img/login.jpg" class="img-carga" alt="">
+                  </div>
+                  <div class="p-2">
+                    <button class="btn btn-reservar btn-primary" (click)="reservar('nombre del servicio')">Reservar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</form>
+
+<!--FORMULARIO PARTE 3-->
+
+<form [formGroup]="formDataUser">
+    <div class="container pt-2 pb-4" *ngIf="userDatos">
+      <div class="row de-flex justify-content-center">
+        <h2>Completa y reserva</h2>
+      </div>
+      <div class="row pt-3">
+  
+        <div class="col-lg-7">
+          <div class="row pt-3">
+            <h2>Tus datos</h2>
+          </div>
+          <div class="row pt-3">
+            <div class="col-lg-6">
+              <p class="">Nombre</p><input formControlName="name" type="text" class="form-control">
+              <small class="text-primary" *ngIf="formDataUser.get('name')?.hasError('required') && errorData">
+                {{getMessage('EL nombre es requerido')}}
+              </small>
+            </div>
+            <div class="col-lg-6">
+              <p class="">Apellido Paterno</p><input formControlName="surname" type="text" class="form-control">
+              <small class="text-primary" *ngIf="formDataUser.get('surname')?.hasError('required') && errorData">
+                {{getMessage('El apellido es requerido')}}
+              </small>
+            </div>
+          </div>
+          <div class="row pt-3">
+        
+            <div class="col-lg-6">
+              <p class="">Número telefonico</p><input onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" formControlName="cel" type="text" class="form-control" maxlength="10">
+              <small class="text-primary" *ngIf="formDataUser.get('cel')?.hasError('required') && errorData">
+              {{getMessage('El movil es requerido y debe de ser de 10 digitos')}}
+            </small>
+            </div>
+          </div>
+          <div class="row pt-3">
+            <div class="col-lg-6">
+              <p class="">Correo electronico</p><input formControlName="email" type="text" class="form-control">
+              <small class="text-primary" *ngIf="formDataUser.get('email')?.hasError('email') && errorData || formDataUser.get('email')?.hasError('required') && errorData">
+                {{getMessage('El correo es requerido y debe ser valido')}}
+              </small>
+            </div>
+          </div>
+  
+          <div class="row pt-3">
+            <h2>Describe tu problema</h2>
+          </div>
+  
+          <div class="row pt-3">
+   
+            <textarea formControlName="description" class="form-control"></textarea>
+            <small class="text-primary" *ngIf="formDataUser.get('description')?.hasError('required') && errorData">
+                {{getMessage('Tu descricción es obligatoria')}}
+              </small>
+            
+          </div>
+          <div class="row pt-3">
+            <div class="col-lg-12">
+              <p class=""><button type="button" class="btn btn-form btn-secondary" 
+                   (click)="sendDatos()">Reservar</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="d-flex flex-column">
+            <div class="p-1">
+              <p style="font-size: 17px; font-weight: bold;">Lugar y fecha</p>
+  
+              <p class="pt-1"><img style="margin-top: -7px;" src="/assets/icons/calendar.svg" width="17px" alt="">
+                Entrega:
+                <span>Cordoba Parque 21 12/12/2021</span>
+              </p>
+            </div>
+            <div class="p-1">
+  
+              <p style="font-size: 17px; font-weight: bold;">Tu servicio</p>
+  
+              <div class="row">
+                <div class="col-md-6 p-2">
+                  <p class="pt-1">Nombre del servicio</p>
+                </div>
+                <div class="col-md-6 p-2 d-flex justify-content-center">
+                  <img src="/assets/img/login.jpg" class="img-car-modal" alt="">
+                </div>
+              </div>
+  
+            </div>
+            <div class="p-2">
+  
+         
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>

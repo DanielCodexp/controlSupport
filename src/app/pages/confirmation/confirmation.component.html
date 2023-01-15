@@ -1,0 +1,68 @@
+<!-- Informacion de entrega y devolución -->
+<div id="htmlData">
+    <div class="text-center container-fluid pt-5">
+        <div class="d-flex flex-column">
+            <div class="p-2">
+                <h3>Felicidades <span style="color:#013D89">{{orderData.name}} {{orderData.surname}}</span></h3>
+            </div>
+            <div class="p-2">
+                <h3>Hemos reservado tu auto</h3>
+            </div>
+            <div class="p-2">
+                <p style="font-size: 27px;">Tu número de reservación es: <span style="color:#013D89"> {{orderData.numOrder}}</span></p>
+            </div>
+            <div class="p-2 pt-5">
+                <div class="row pt-4 text-center">
+                    <div class="col-lg-4 p-2">
+                        <button type="button" class="btn btn-form btn-secondary">Re-enviar confirmación</button>
+                    </div>
+                    <div class="col-lg-4 p-2">
+                        <button type="button" class="btn btn-form btn-secondary">DESCARGAR</button>
+                        <!-- (click)="download()" loadingButton [isDisabledButton]="imprimir" [label]="'Descargar confirmación'" -->
+                    </div>
+                    <div class="col-lg-4 p-2">
+                        <button type="button" class="btn btn-form btn-secondary" routerLink=''>Hacer un nuevo reporte</button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5">
+                <h3>Información de reservación</h3>
+            </div>
+    
+            <div class="p-2">
+    
+                <div class="row text-center">
+                    <div class="col-lg-12 p-2 pr-5 pl-5">
+                        <div class="card mb-3" style="width: 100%;">
+                            <div class="card-header">Entrega</div>
+                            <div class="card-body text-card">
+                                <p class="card-title">{{orderData.fechaEntrega}}</p>
+                                <p class="card-title">{{orderData.direccion}}, {{orderData.ciudad}}</p>
+                            </div>
+                        </div>
+                    </div>
+             
+                </div>
+            </div>
+            <hr>
+            <div class="p-2 pt-4">
+               
+            </div>
+            <hr>
+            <div class="p-2 pt-4">
+                <p style="font-size: 17px; font-weight: bold;">Tus datos</p>
+                <div class="d-flex pt-3" [ngClass]="{'flex-column': isMobile,'justify-content-around': !isMobile}">
+                    <div class="p-2">
+                            <p style="font-size: 15px; font-weight: bold;"> {{orderData.name}} {{orderData.surname}}</p>
+                            <p style="font-size: 15px;"> <span style="font-weight: bold;">Correo:</span> {{orderData.email}}</p>
+                    </div>
+                    <div class="p-2">
+                        <p style="font-size: 15px;"> <span style="font-weight: bold;">País:</span> {{orderData.country}}</p>
+                        <p style="font-size: 15px;"> <span style="font-weight: bold;">Teléfono:</span> {{orderData.cel}}</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    </div>

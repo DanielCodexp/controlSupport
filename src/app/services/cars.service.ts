@@ -16,44 +16,44 @@ export class CarsService {
 
   constructor(private firetore: Firestore, private baseService: BaseService) { }
 
-  public getFaq(): Observable<Faq []>{
-    return this.baseService.get('assets/json/faq.json');
-  }
+  // public getFaq(): Observable<Faq []>{
+  //   return this.baseService.get('assets/json/faq.json');
+  // }
   
-  public getCountryNames(): Observable<Country []>{
-    return this.baseService.get('assets/json/countries.json');
-  }
+  // public getCountryNames(): Observable<Country []>{
+  //   return this.baseService.get('assets/json/countries.json');
+  // }
 
-  public getTime(): Observable<Time []>{
-    return this.baseService.get('assets/json/time.json');
-  }
+  // public getTime(): Observable<Time []>{
+  //   return this.baseService.get('assets/json/time.json');
+  // }
 // Agregar un carro 
   addCars(car:DatosService){
-    const carRef = collection(this.firetore, 'rent-info');
+    const carRef = collection(this.firetore, 'report-info');
     return addDoc(carRef, car);
   }
 // Traer carros disponible
-  getCars(): Observable<DatosCars[]> {
-    const carRef = collection(this.firetore, 'car');
-    return collectionData(carRef, {idField: 'id'}) as Observable<DatosCars[]>;
-  }
+  // getCars(): Observable<DatosCars[]> {
+  //   const carRef = collection(this.firetore, 'car');
+  //   return collectionData(carRef, {idField: 'id'}) as Observable<DatosCars[]>;
+  // }
 
 
-   async getOrder(id:string) {
-    const carDocRef = doc(this.firetore, "rent-info", id);
-    return getDoc(carDocRef)
-    .then((doc) => {
-      return doc.data()
-    })
-  }
+    async getOrder(id:string) {
+     const carDocRef = doc(this.firetore, "rent-info", id);
+     return getDoc(carDocRef)
+     .then((doc) => {
+       return doc.data()
+     })
+   }
 
-  async getCarByOrder(id:string) {
-    const carDocRef = doc(this.firetore, "car", id);
-    return getDoc(carDocRef)
-    .then((doc) => {
-      return doc.data()
-    })
-  }
+  // async getCarByOrder(id:string) {
+  //   const carDocRef = doc(this.firetore, "car", id);
+  //   return getDoc(carDocRef)
+  //   .then((doc) => {
+  //     return doc.data()
+  //   })
+  // }
 
 
   //Borrar cita
