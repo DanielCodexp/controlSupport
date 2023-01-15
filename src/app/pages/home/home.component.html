@@ -1,0 +1,77 @@
+
+  <div class="container-fluid" [ngClass]="{'bg-container-mobil': isMobile,'bg-container-web': !isMobile}">
+    <div class="d-flex justify-content-center" [ngClass]="{'flex-column': isMobile}">
+      <div [ngClass]="{'form-mobil': isMobile,'form-c': !isMobile}">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="d-flex justify-content-start p-con">
+                <div style="width: 100%;">
+                  <p class="text">Lugar de renta</p>
+                </div>
+              </div>
+
+              <div class="row m-input ">
+                <div class="col-lg-8 p-1">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle s-drop" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <img src="/assets/icons/ubication.jpeg" width="15px"> ¿Dondé inicia tu viaje?
+                    </button>
+                    <div class="dropdown-menu form-control" aria-labelledby="dropdownMenuButton">
+                      <a (click)="ciudad('cordoba')" class="dropdown-item">Córdoba</a>
+                      <a (click)="ciudad('orizaba')" class="dropdown-item">Orizaba</a>
+                    </div>
+                  </div>
+                  <small class="text-warning"
+                    *ngIf="!cordoba && !orizaba && error ||  form.get('direccionCordoba')?.hasError('required') && error ||  form.get('direccionOrizaba')?.hasError('required') && error">
+                    {{getMessage('Selecciona ciudad y dirección')}}
+                  </small>
+                </div>
+                <div class="col-lg-4 p-1" *ngIf="cordoba && !orizaba">
+                  <select class="form-control" style="height: 2.5rem;" formControlName="direccionCordoba"
+                    id="direccionCordoba" required>
+                    <option value="" disabled selected>Córdoba</option>
+                    <option *ngFor="let item of cordobaArray" [value]="item.direccion">{{item.direccion}}</option>
+                  </select>
+                </div>
+                <div class="col-lg-4 p-1" *ngIf="orizaba && !cordoba">
+                  <select class="form-control" style="height: 2.5rem;" formControlName="direccionOrizaba"
+                    id="direccionOrizaba" required>
+                    <option value="" disabled selected>Orizaba</option>
+                    <option *ngFor="let item of orizabaArray" [value]="item.direccion">{{item.direccion}}</option>
+
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 p-2">
+              <p class="text pt-2">Entrega</p>
+              <div class="d-flex justify-content-around">
+                <div class="p-2 m-input">
+                  <input type="date" class="form-control form" placeholder="Fecha" formControlName="fechaEntrega">
+                  <small class="text-warning" *ngIf="form.get('fechaEntrega')?.hasError('required') && error">
+                    {{getMessage('La fecha es requerida')}}
+                  </small>
+                  <small class="text-warning" *ngIf="ErrordateEn">
+                    {{getMessage('Error en las fechas')}}
+                  </small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row pb-2">
+            <div class="d-flex col-lg-6 text-end">
+              <div class="ml-auto p-2 w-div-btn">
+                <button type="button" class="btn btn-form btn-secondary" loadingButton (click)="send()">Buscar
+                  auto</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
