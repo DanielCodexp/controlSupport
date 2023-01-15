@@ -12,11 +12,11 @@ import { CarsService } from 'src/app/services/cars.service';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class FormComponent implements OnInit {
   public priceByDay = 0;
   public totalRentDays = 0;
   public ErrordateEn = false;

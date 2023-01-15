@@ -40,7 +40,7 @@ export class CarsService {
 
 
     async getOrder(id:string) {
-     const carDocRef = doc(this.firetore, "rent-info", id);
+     const carDocRef = doc(this.firetore, "report-info", id);
      return getDoc(carDocRef)
      .then((doc) => {
        return doc.data()
