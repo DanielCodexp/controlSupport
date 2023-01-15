@@ -6,19 +6,22 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-8">
               <div class="d-flex justify-content-start p-con">
                 <div style="width: 100%;">
-                  <p class="text">Lugar de renta</p>
+                  <p class="text">Ubicación del Reporte</p>
                 </div>
               </div>
 
               <div class="row m-input ">
-                <div class="col-lg-8 p-1">
+                <div class="col-lg-4 p-1">
                   <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle s-drop" type="button" id="dropdownMenuButton"
                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img src="/assets/icons/ubication.jpeg" width="15px"> ¿Dondé inicia tu viaje?
+                      <span class="material-symbols-outlined">
+                        location_on
+                        </span>
+                      Selecciona tu Sucursal
                     </button>
                     <div class="dropdown-menu form-control" aria-labelledby="dropdownMenuButton">
                       <a (click)="ciudad('cordoba')" class="dropdown-item">Córdoba</a>
@@ -48,8 +51,8 @@
               </div>
             </div>
             <div class="col-lg-4 p-2">
-              <p class="text pt-2">Entrega</p>
-              <div class="d-flex justify-content-around">
+              <p class="text pt-2">Fecha a entregar Equipo</p>
+              <div class="d-flex ">
                 <div class="p-2 m-input">
                   <input type="date" class="form-control form" placeholder="Fecha" formControlName="fechaEntrega">
                   <small class="text-warning" *ngIf="form.get('fechaEntrega')?.hasError('required') && error">
@@ -66,8 +69,7 @@
           <div class="row pb-2">
             <div class="d-flex col-lg-6 text-end">
               <div class="ml-auto p-2 w-div-btn">
-                <button type="button" class="btn btn-form btn-secondary" loadingButton (click)="send()">Buscar
-                  auto</button>
+                <button type="button" class="btn btn-form btn-secondary" loadingButton (click)="send()">Selecciona Servicio</button>
               </div>
 
             </div>
@@ -80,13 +82,13 @@
     <!-- FORMULARIO PARTE 2 -->
 
     <div class="container-fluid text-center pt-5" *ngIf="autos">
-        <h2>Selecciona tu auto</h2>
+        <h2>Selecciona servicio Solicitado</h2>
     
         <div class="row pt-5 pb-5">
           <div class="col-md-6 pb-3">
             <div class="card text-center">
               <div class="card-header">
-                Titulo del servicio
+                Problemas con impresora
               </div>
               <div class="card-body">
              
@@ -96,7 +98,7 @@
                     <img src="/assets/img/login.jpg" class="img-carga" alt="">
                   </div>
                   <div class="p-2">
-                    <button class="btn btn-reservar btn-primary" (click)="reservar('nombre del servicio')">Reservar</button>
+                    <button class="btn btn-reservar btn-primary" (click)="reservar('nombre del servicio')">Seleccionar</button>
                   </div>
                 </div>
               </div>
@@ -111,7 +113,7 @@
 <form [formGroup]="formDataUser">
     <div class="container pt-2 pb-4" *ngIf="userDatos">
       <div class="row de-flex justify-content-center">
-        <h2>Completa y reserva</h2>
+        <h2>COMPLETA EL FORMULARIO</h2>
       </div>
       <div class="row pt-3">
   
@@ -141,8 +143,6 @@
               {{getMessage('El movil es requerido y debe de ser de 10 digitos')}}
             </small>
             </div>
-          </div>
-          <div class="row pt-3">
             <div class="col-lg-6">
               <p class="">Correo electronico</p><input formControlName="email" type="text" class="form-control">
               <small class="text-primary" *ngIf="formDataUser.get('email')?.hasError('email') && errorData || formDataUser.get('email')?.hasError('required') && errorData">
@@ -166,7 +166,7 @@
           <div class="row pt-3">
             <div class="col-lg-12">
               <p class=""><button type="button" class="btn btn-form btn-secondary" 
-                   (click)="sendDatos()">Reservar</button>
+                   (click)="sendDatos()">Enviar</button>
             </div>
           </div>
         </div>
