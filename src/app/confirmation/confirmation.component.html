@@ -1,0 +1,188 @@
+<app-navbar></app-navbar>
+<!-- Informacion de entrega y devolución -->
+<div id="htmlData">
+<div class="text-center container-fluid pt-5">
+    <div class="d-flex flex-column">
+        <div class="p-2">
+            <h3>Felicidades <span style="color:#013D89">{{orderData.name}} {{orderData.surname}}</span></h3>
+        </div>
+        <div class="p-2">
+            <h3>Hemos reservado tu auto</h3>
+        </div>
+        <div class="p-2">
+            <p style="font-size: 27px;">Tu número de reservación es: <span style="color:#013D89"> {{orderData.numOrder}}</span></p>
+        </div>
+        <div class="p-2 pt-5">
+            <div class="row pt-4 text-center">
+                <div class="col-lg-4 p-2">
+                    <button type="button" class="btn btn-form btn-secondary">Re-enviar confirmación</button>
+                </div>
+                <div class="col-lg-4 p-2">
+                    <button type="button" class="btn btn-form btn-secondary" (click)="download()" loadingButton [isDisabledButton]="imprimir" [label]="'Descargar confirmación'"></button>
+                </div>
+                <div class="col-lg-4 p-2">
+                    <button type="button" class="btn btn-form btn-secondary" routerLink=''>Hacer nueva reservación</button>
+                </div>
+            </div>
+        </div>
+        <div class="p-5">
+            <h3>Información de reservación</h3>
+        </div>
+
+        <div class="p-2">
+
+            <div class="row text-center">
+                <div class="col-lg-6 p-2 pr-5 pl-5">
+                    <div class="card mb-3" style="width: 100%;">
+                        <div class="card-header">Entrega</div>
+                        <div class="card-body text-card">
+                            <p class="card-title">{{orderData.fechaEntrega}}</p>
+                            <p class="card-title">{{orderData.horaEntrega}}</p>
+                            <p class="card-title">{{orderData.direccion}}, {{orderData.ciudad}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 p-2 pr-5 pl-5">
+                    <div class="card mb-3" style="width: 100%;">
+                        <div class="card-header">Devolución</div>
+                        <div class="card-body text-card">
+                            <p class="card-title">{{orderData.fechaDevolucion}}</p>
+                            <p class="card-title">{{orderData.horaDevolucion}}</p>
+                            <p class="card-title">{{orderData.direccion}}, {{orderData.ciudad}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="p-2 pt-4">
+            <div class="d-flex" [ngClass]="{'flex-column': isMobile,'justify-content-around': !isMobile}">
+                <div class="p-2">
+                    <p style="font-size: 17px; font-weight: bold;">Tu auto</p>
+                    <div class="d-flex pt-2" [ngClass]="{'flex-column': isMobile,'justify-content-around': !isMobile}">
+                        <div class="p-2" [ngClass]="{'size-b': isMobile,'size': !isMobile}">
+                            <p>{{carByUser.carBrand}}</p>
+                            <div class="d-flex justify-content-center">
+                                <div class="p-1">
+                                  <img src="/assets/icons/person-fill.svg" width="25px" alt=""><span>{{carByUser.persons}}</span>
+                                </div>
+                                <div class="p-1">
+                                  <img src="/assets/icons/briefcase-fill.svg" width="22px" alt=""><span> {{carByUser.largeBaggage}}</span>
+                                </div>
+                                <div class="p-1">
+                                  <img src="/assets/icons/briefcase-fill.svg" width="15px" alt=""><span> {{carByUser.smallBaggage}}</span>
+                                </div>
+                                <div class="p-1">
+                                  <p style="font-size: 20px; font-weight: bold;">{{carByUser.type}}</p>
+                                </div>
+                                <div class="p-1" *ngIf="!carByUser.smoke">
+                                  <img src="/assets/icons/noFumar.png" width="30px" alt="">
+                                </div>
+                                <div class="p-1" *ngIf="carByUser.airConditioner">
+                                  <img src="/assets/icons/snow2.svg" width="20px" alt="">
+                                </div>
+                              </div>
+                        </div>
+                        <div class="p-2">
+                            <img src={{carByUser.url}} style="width: 50%;" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2" [ngClass]="{'size-b': isMobile,'size': !isMobile}">
+                    <p style="font-size: 17px; font-weight: bold;">Detalles del precio</p>
+                    <div class="d-flex flex-column">
+                      <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                          <p>Cupón</p>
+                        </div>
+        
+                        <div class="p-2">
+                          <p>{{orderData.codeProm}}</p>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                          <p>Precio por {{orderData.totalRentDays}} días</p>
+                        </div>
+        
+                        <div class="p-2">
+                          <p>$ {{orderData.priceTotalByDays}}</p>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                          <p>
+                            <a data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false"
+                              aria-controls="multiCollapseExample1">IVA</a>
+                          </p>
+                        </div>
+                        <div class="p-2">
+                          <p>$ {{orderData.ivaTotal}}</p>
+                        </div>
+                      </div>
+                      <!-- <div class="row">
+                        <div class="col">
+                          <div class="collapse multi-collapse pl-3" id="multiCollapseExample1">
+                            <div class="d-flex justify-content-between">
+                              <div class="p-1">
+                                <p>City/Other Surcharge</p>
+                              </div>
+        
+                              <div class="p-1">
+                                <p>$123</p>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                              <div class="p-1">
+                                <p>Customer Facility Fee</p>
+                              </div>
+        
+                              <div class="p-1">
+                                <p>$125</p>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                              <div class="p-1">
+                                <p>Local Tax</p>
+                              </div>
+        
+                              <div class="p-1">
+                                <p>$345</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="d-flex justify-content-between">
+                        <div class="p-1" style="font-size: 17px; font-weight: bold;">
+                          <p>Total</p>
+                        </div>
+        
+                        <div class="p-1">
+                          <p>${{orderData.priceFinal}}</p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="p-2 pt-4">
+            <p style="font-size: 17px; font-weight: bold;">Tus datos</p>
+            <div class="d-flex pt-3" [ngClass]="{'flex-column': isMobile,'justify-content-around': !isMobile}">
+                <div class="p-2">
+                        <p style="font-size: 15px; font-weight: bold;"> {{orderData.name}} {{orderData.surname}}</p>
+                        <p style="font-size: 15px;"> <span style="font-weight: bold;">Correo:</span> {{orderData.email}}</p>
+                </div>
+                <div class="p-2">
+                    <p style="font-size: 15px;"> <span style="font-weight: bold;">País:</span> {{orderData.country}}</p>
+                    <p style="font-size: 15px;"> <span style="font-weight: bold;">Teléfono:</span> {{orderData.cel}}</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+<br>
+<app-info-confirmation></app-info-confirmation>
+</div>

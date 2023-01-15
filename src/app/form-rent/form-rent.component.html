@@ -1,0 +1,519 @@
+<form [formGroup]="form">
+
+  <!-- FORMULARIO PARTE 1 -->
+  <div class="container-fluid" [ngClass]="{'bg-container-mobil': isMobile,'bg-container-web': !isMobile}">
+    <div class="d-flex justify-content-center" [ngClass]="{'flex-column': isMobile}">
+      <div class="p-2" *ngIf="isMobile">
+        <img src="/assets/img/leyenda.png" class="img-w" alt="">
+      </div>
+      <div [ngClass]="{'form-mobil': isMobile,'form-c': !isMobile}">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="d-flex justify-content-start p-con">
+                <div style="width: 100%;">
+                  <p class="text">Lugar de renta</p>
+                </div>
+                <!-- <div class="ml-auto">
+                  <div class="d-flex justify-content-around">
+                    <div class="pt-1">
+                      <input class="input" type="checkbox" name="option" id="check1" />
+                      <label class="label" for="check1">
+                        <img src="assets/icons/check.svg" class="check1" alt="">
+                      </label>
+
+                    </div>
+                    <div>
+                      <p class="text pl-3">Devolver en otro destino</p>
+                    </div>
+                  </div>
+
+                </div> -->
+              </div>
+
+              <div class="row m-input ">
+                <div class="col-lg-8 p-1">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle s-drop" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <img src="/assets/icons/ubication.jpeg" width="15px"> ¿Dondé inicia tu viaje?
+                    </button>
+                    <div class="dropdown-menu form-control" aria-labelledby="dropdownMenuButton">
+                      <a (click)="ciudad('cordoba')" class="dropdown-item">Córdoba</a>
+                      <a (click)="ciudad('orizaba')" class="dropdown-item">Orizaba</a>
+                    </div>
+                  </div>
+                  <small class="text-warning"
+                    *ngIf="!cordoba && !orizaba && error ||  form.get('direccionCordoba')?.hasError('required') && error ||  form.get('direccionOrizaba')?.hasError('required') && error">
+                    {{getMessage('Selecciona ciudad y dirección')}}
+                  </small>
+                </div>
+                <div class="col-lg-4 p-1" *ngIf="cordoba && !orizaba">
+                  <select class="form-control" style="height: 2.5rem;" formControlName="direccionCordoba"
+                    id="direccionCordoba" required>
+                    <option value="" disabled selected>Córdoba</option>
+                    <option *ngFor="let item of cordobaArray" [value]="item.direccion">{{item.direccion}}</option>
+                  </select>
+                </div>
+                <div class="col-lg-4 p-1" *ngIf="orizaba && !cordoba">
+                  <select class="form-control" style="height: 2.5rem;" formControlName="direccionOrizaba"
+                    id="direccionOrizaba" required>
+                    <option value="" disabled selected>Orizaba</option>
+                    <option *ngFor="let item of orizabaArray" [value]="item.direccion">{{item.direccion}}</option>
+
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 p-2">
+              <p class="text pt-2">Entrega</p>
+              <div class="d-flex justify-content-around">
+                <div class="p-2 m-input">
+                  <input type="date" class="form-control form" placeholder="Fecha" formControlName="fechaEntrega">
+                  <small class="text-warning" *ngIf="form.get('fechaEntrega')?.hasError('required') && error">
+                    {{getMessage('La fecha es requerida')}}
+                  </small>
+                  <small class="text-warning" *ngIf="ErrordateEn">
+                    {{getMessage('Error en las fechas')}}
+                  </small>
+                </div>
+                <div class="p-2 m-input">
+                  <div class="input-group">
+
+                  <select class="form-control" style="height: 2.5rem;" formControlName="horaEntrega"
+                  id="horaEntrega" required>
+                  <option value="" disabled selected>Horario</option>
+                  <option *ngFor="let item of time" [value]="item.time">{{item.time}}</option>
+                  </select>
+                    <div class="input-group-prepend" style="background-color: transparent; border: transparent;">
+                      <span class="input-group-text"><img src="/assets/icons/clock.svg" alt=""> </span>
+                    </div>
+                  </div>
+                  <small class="text-warning" *ngIf="form.get('horaEntrega')?.hasError('required') && error">
+                    {{getMessage('La hora es requerida')}}
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 p-2">
+              <p class="text pt-2">Devolución</p>
+              <div class="d-flex justify-content-around">
+                <div class="p-2 m-input">
+                  <input type="date" class="form-control form" formControlName="fechaDevolucion">
+                  <small class="text-warning" *ngIf="form.get('fechaDevolucion')?.hasError('required') && error">
+                    {{getMessage('La fecha es requerida')}}
+                  </small>
+                  <small class="text-warning" *ngIf="ErrordateEn">
+                    {{getMessage('Error en las fechas')}}
+                  </small>
+                </div>
+                <div class="p-2 m-input">
+                  <div class="input-group">
+                    <select class="form-control" style="height: 2.5rem;" formControlName="horaDevolucion"
+                    id="horaDevolucion" required>
+                    <option value="" disabled selected>Horario</option>
+                    <option *ngFor="let item of time" [value]="item.time">{{item.time}}</option>
+                    </select>
+                      <div class="input-group-prepend" style="background-color: transparent; border: transparent;">
+                        <span class="input-group-text"><img src="/assets/icons/clock.svg" alt=""> </span>
+                      </div>
+                    </div>
+                  <small class="text-warning" *ngIf="form.get('horaDevolucion')?.hasError('required') && error">
+                    {{getMessage('La hora es requerida')}}
+                  </small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row pb-2">
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="d-flex justify-content-star">
+                    <div class="p-2">
+                      <p class="text">Edad</p>
+                    </div>
+                    <div class="p-2" style="width: 100%;">
+                      <select class="form-control" style="height: 2.5rem;" formControlName="edad" id="edad" required>
+                        <option value="" disabled selected>Selecciona tu edad</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25+</option>
+                      </select>
+                      <small class="text-warning" *ngIf="form.get('edad')?.hasError('required') && error">
+                        {{getMessage('La edad es requerida')}}
+                      </small>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+
+
+                  <div class="d-flex justify-content-end pt-2">
+                    <div class="pt-1">
+                      <input class="input" type="checkbox" name="option" id="check2" formControlName="codigo"/>
+                      <label class="label" for="check2">
+                        <img src="assets/icons/check.svg" class="check1" alt="">
+                      </label>
+
+                    </div>
+                    <div *ngIf="!form.get('codigo')?.value">
+                      <p class="text pl-3">Tengo un codigo promocional</p>
+                    </div>
+                    <div *ngIf="form.get('codigo')?.value" class="pl-3">
+                      <input type="text" class="form-control form pl-3" formControlName="codeProm" placeholder="Ingresa tu codigo">
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+            </div>
+            <div class="d-flex col-lg-6 text-end">
+              <div class="ml-auto p-2 w-div-btn">
+                <button type="button" class="btn btn-form btn-secondary" loadingButton (click)="send()">Buscar
+                  auto</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-2" *ngIf="isMobile">
+        <img src="/assets/img/autos.png" class="img-w" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULARIO PARTE 2 -->
+
+  <div class="container-fluid text-center pt-5" *ngIf="autos">
+    <h2>Selecciona tu auto</h2>
+
+    <div class="row pt-5 pb-5">
+      <div class="col-md-6 pb-3" *ngFor="let car of cars">
+        <div class="card text-center">
+          <div class="card-header">
+            {{car.carBrand}}
+          </div>
+          <div class="card-body">
+            <div class="p-2 filter" *ngIf="!car.available">
+              <h3 class="dis-text">NO DISPONIBLE</h3>
+            </div>
+            <div class="d-flex flex-column">
+
+              <div class="p-2">
+                <img [src]="car.url" class="img-carga" alt="">
+              </div>
+              <div class="p-2">
+                <div class="d-flex justify-content-center">
+                  <div class="p-1">
+                    <img src="/assets/icons/person-fill.svg" width="25px" alt=""><span>{{car.persons}}</span>
+                  </div>
+                  <div class="p-1">
+                    <img src="/assets/icons/briefcase-fill.svg" width="22px" alt=""><span> {{car.largeBaggage}}</span>
+                  </div>
+                  <div class="p-1">
+                    <img src="/assets/icons/briefcase-fill.svg" width="15px" alt=""><span> {{car.smallBaggage}}</span>
+                  </div>
+                  <div class="p-1">
+                    <p style="font-size: 20px; font-weight: bold;">{{car.type}}</p>
+                  </div>
+                  <div class="p-1" *ngIf="!car.smoke">
+                    <img src="/assets/icons/noFumar.png" width="30px" alt="">
+                  </div>
+                  <div class="p-1" *ngIf="car.airConditioner">
+                    <img src="/assets/icons/snow2.svg" width="20px" alt="">
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="car.chofer">
+                <p style="font-weight: bold;"> <img src="/assets/icons/chofer.png" width="22px" alt=""> Incluye chofer</p>
+              </div>
+              <div *ngIf="!car.chofer">
+                <p style="font-weight: bold;"> <img src="/assets/icons/chofer.png" width="22px" alt=""> No incluye chofer</p>
+              </div>
+              <div class="p-1">
+                <h4>${{car.price_day | number}} MXN</h4>
+              </div>
+              <div class="p-2">
+                <button class="btn btn-reservar btn-primary" (click)="reservar(car.carBrand,car.url, car.id, car.price_day)"
+                  [disabled]="!car.available">Reservar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+  <!-- FORMULARIO PARTE 3 -->
+<form [formGroup]="formDataUser">
+  <div class="container pt-2 pb-4" *ngIf="userDatos">
+    <div class="row de-flex justify-content-center">
+      <h2>Completa y reserva</h2>
+    </div>
+    <div class="row pt-3">
+
+      <div class="col-lg-7">
+        <div class="row pt-3">
+          <h2>Tus datos</h2>
+        </div>
+        <div class="row pt-3">
+          <div class="col-lg-6">
+            <p class="">Nombre</p><input formControlName="name" type="text" class="form-control">
+            <small class="text-primary" *ngIf="formDataUser.get('name')?.hasError('required') && errorData">
+              {{getMessage('EL nombre es requerido')}}
+            </small>
+          </div>
+          <div class="col-lg-6">
+            <p class="">Apellido Paterno</p><input formControlName="surname" type="text" class="form-control">
+            <small class="text-primary" *ngIf="formDataUser.get('surname')?.hasError('required') && errorData">
+              {{getMessage('El apellido es requerido')}}
+            </small>
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col-lg-6" style="width: 100%;">
+            <p class="">País</p>
+            <select class="form-control" style="height: 2.5rem;" formControlName="country"
+              id="country" required>
+              <option value="" disabled selected>Sitios de entrega en Orizaba</option>
+              <option *ngFor="let item of countryNames" [value]="item.code">{{item.name}}</option>
+
+            </select>
+          </div>
+          <div class="col-lg-6">
+            <p class="">Número telefonico</p><input onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" formControlName="cel" type="text" class="form-control" maxlength="10">
+            <small class="text-primary" *ngIf="formDataUser.get('cel')?.hasError('required') && errorData">
+            {{getMessage('El movil es requerido y debe de ser de 10 digitos')}}
+          </small>
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col-lg-6">
+            <p class="">Correo electronico</p><input formControlName="email" type="text" class="form-control">
+            <small class="text-primary" *ngIf="formDataUser.get('email')?.hasError('email') && errorData || formDataUser.get('email')?.hasError('required') && errorData">
+              {{getMessage('El correo es requerido y debe ser valido')}}
+            </small>
+          </div>
+          <div class="col-lg-6">
+            <p class="">Fecha de nacimiento</p><input type="date" formControlName="bithDate" class="form-control">
+            <small class="text-primary" *ngIf="formDataUser.get('bithDate')?.hasError('required') && errorData">
+              {{getMessage('Ingrese su fecha de nacimiento')}}
+            </small>
+            <small class="text-primary" *ngIf="ErrordateEn">
+              {{getMessage('Fecha de nacimiento inavalida debe ser mayor a 21 años')}}
+            </small>
+          </div>
+        </div>
+
+        <div class="row pt-3">
+          <h2>Registra tu tarjeta</h2>
+        </div>
+
+        <div class="row pt-3">
+          <div class="col-lg-6">
+            <p class="">Número de tarjeta</p>
+            
+            <div class="input-group">
+              <div class="input-group-prepend bg-i">
+                <span class="input-group-text bg-i"><img src="/assets/icons/card.svg" alt=""> </span>
+              </div>
+              <input onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" formControlName="numCard" type="text" class="form-control" maxlength="16"
+              placeholder=" XXXX - XXXX - XXXX - XXXX">
+            </div>
+            <small class="text-primary" *ngIf="formDataUser.get('numCard')?.hasError('required') && errorData">
+            {{getMessage('El registro de su tarjeta es requerido')}}
+          </small>
+          </div>
+          
+          <div class="col-lg-3">
+            <p class="">Vencimiento</p>
+            <div class="input-group">
+              <div class="input-group-prepend bg-i">
+                <span class="input-group-text bg-i"><img src="/assets/icons/calendar.svg" alt=""> </span>
+              </div>
+              <input onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" formControlName="expCard" type="text" class="form-control" maxlength="4"
+              placeholder="MM / YY">
+            </div>
+            <small class="text-primary" *ngIf="formDataUser.get('expCard')?.hasError('required') && errorData">
+            {{getMessage('Este campo es requerido')}}
+          </small>
+          </div>
+
+          
+        </div>
+        
+        <div class="row pt-3">
+          <div class="col-lg-12">
+            <div class="d-flex justify-content-start">
+              <div class="pt-1">
+                <input class="input" type="checkbox" name="option" id="check3" formControlName="terms" />
+                <label class="label" for="check3">
+                  <img src="assets/icons/check-black.svg" class="check1" alt="">
+                </label>
+
+              </div>
+              <div>
+                <p class="pl-3">
+                  Estoy de acuerdo y acepto los <span class="term cursor" routerLink="terminos-y-condiciones">términos y condiciones</span>,
+                  así como las políticas de renta, modificaciones,
+                  cancelaciones y procedimientos de VLICARS.
+
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row pt-3">
+          <div class="col-lg-12">
+            <p class=""><button type="button" class="btn btn-form btn-secondary" loadingButton
+                [disabled]="!formDataUser.get('terms')?.value" (click)="sendDatos()">Reservar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="d-flex flex-column" *ngFor="let dato of datos">
+          <div class="p-1">
+            <p style="font-size: 17px; font-weight: bold;">Lugar y fecha</p>
+
+            <p class="pt-1"><img style="margin-top: -7px;" src="/assets/icons/calendar.svg" width="17px" alt="">
+              Entrega:
+              <span>{{dato.ciudad}} {{dato.direccion}} {{dato.fechaEntrega}} {{dato.horaEntrega}}</span>
+            </p>
+
+            <p class="pt-1"><img style="margin-top: -7px;" src="/assets/icons/calendar.svg" width="17px" alt="">
+              Devolución: <span>{{dato.ciudad}} {{dato.direccion}} {{dato.fechaDevolucion}}
+                {{dato.horaDevolucion}}</span>
+            </p>
+          </div>
+          <div class="p-1">
+
+            <p style="font-size: 17px; font-weight: bold;">Tu auto</p>
+
+            <div class="row">
+              <div class="col-md-6 p-2">
+                <p class="pt-1">{{dato.auto}}</p>
+                <div class="d-flex">
+                  <div class="p-1">
+                    <img src="/assets/icons/person-fill.svg" width="25px" alt=""><span>{{carByUser.persons}}</span>
+                  </div>
+                  <div class="p-1">
+                    <img src="/assets/icons/briefcase-fill.svg" width="22px" alt=""><span> {{carByUser.largeBaggage}}</span>
+                  </div>
+                  <div class="p-1">
+                    <img src="/assets/icons/briefcase-fill.svg" width="15px" alt=""><span> {{carByUser.smallBaggage}}</span>
+                  </div>
+                  <div class="p-1">
+                    <p style="font-size: 20px; font-weight: bold;">{{carByUser.type}}</p>
+                  </div>
+                  <div class="p-1" *ngIf="!carByUser.smoke">
+                    <img src="/assets/icons/noFumar.png" width="30px" alt="">
+                  </div>
+                  <div class="p-1" *ngIf="carByUser.airConditioner">
+                    <img src="/assets/icons/snow2.svg" width="20px" alt="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 p-2 d-flex justify-content-center">
+                <img src={{dato.url}} class="img-car-modal" alt="">
+              </div>
+            </div>
+
+          </div>
+          <div class="p-2">
+
+            <p style="font-size: 17px; font-weight: bold;">Detalles del precio</p>
+            <div class="d-flex flex-column">
+              <div class="d-flex justify-content-between">
+                <div class="p-2">
+                  <p>Cupón</p>
+                </div>
+
+                <div class="p-2" *ngIf="!formDataUser.get('codigo')?.value">
+                  <p>N/A</p>
+                </div>
+                <div class="p-2" *ngIf="formDataUser.get('codigo')?.value">
+                  <p>{{formDataUser.get('codeProm')?.value}}</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="p-2">
+                  <p>Precio por {{totalRentDays}} días</p>
+                </div>
+
+                <div class="p-2">
+                  <p>${{priceTotal(carByUser.price_day, totalRentDays)| number}}</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="p-2">
+                  <p>
+                    <a data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false"
+                      aria-controls="multiCollapseExample1">IVA</a>
+                  </p>
+                </div>
+                <div class="p-2">
+                  <p>${{iva(priceTotal(carByUser.price_day,totalRentDays)) | number}}</p>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse pl-3" id="multiCollapseExample1">
+                    <div class="d-flex justify-content-between">
+                      <div class="p-1">
+                        <p>City/Other Surcharge</p>
+                      </div>
+
+                      <div class="p-1">
+                        <p>$123</p>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="p-1">
+                        <p>Customer Facility Fee</p>
+                      </div>
+
+                      <div class="p-1">
+                        <p>$125</p>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="p-1">
+                        <p>Local Tax</p>
+                      </div>
+
+                      <div class="p-1">
+                        <p>$345</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <div class="d-flex justify-content-between">
+                <div class="p-1" style="font-size: 17px; font-weight: bold;">
+                  <p>Total</p>
+                </div>
+
+                <div class="p-1">
+                  <p>${{priceFinal(priceTotal(carByUser.price_day,totalRentDays),iva(priceTotal(carByUser.price_day,totalRentDays)))| number}}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
