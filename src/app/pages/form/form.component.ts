@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { clippingParents } from '@popperjs/core';
+import { image } from 'html2canvas/dist/types/css/types/image';
 import { FormbHelper } from 'src/app/helper/form-helper';
 import { DatosCars } from 'src/app/interface/cars-interface';
 import { Country } from 'src/app/interface/countries';
@@ -73,6 +74,11 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
 
     this.isMobile = this.sharedService.isMobile;
+
+    this.carService.getServices().subscribe(response => {
+      console.log(response)
+      this.cars = response;
+    })
   }
 
   public getRandomIntInclusive(min:number, max:number) {
@@ -118,7 +124,7 @@ export class FormComponent implements OnInit {
 
   }
 
-  public async reservar(marca: string) {
+  public async reservar(marca: string,image:string) {
    
     let direc;
     if (this.ciudadEntrega == 'cordoba') {
@@ -133,6 +139,7 @@ export class FormComponent implements OnInit {
       auto: marca,
       ciudad: this.ciudadEntrega,
       direccion: direc,
+      url:image,
       fechaEntrega:  this.form.get("fechaEntrega")?.value
 
     }

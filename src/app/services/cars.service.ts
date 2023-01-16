@@ -33,10 +33,10 @@ export class CarsService {
     return addDoc(carRef, car);
   }
 // Traer carros disponible
-  // getCars(): Observable<DatosCars[]> {
-  //   const carRef = collection(this.firetore, 'car');
-  //   return collectionData(carRef, {idField: 'id'}) as Observable<DatosCars[]>;
-  // }
+   getServices(): Observable<DatosCars[]> {
+     const carRef = collection(this.firetore, 'Servicio');
+     return collectionData(carRef, {idField: 'id'}) as Observable<DatosCars[]>;
+   }
 
 
     async getOrder(id:string) {

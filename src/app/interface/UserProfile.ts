@@ -4,7 +4,7 @@ export interface DatosService{
     ciudad: string;
     direccion: boolean;
     fechaEntrega: string;
- 
+    
 
     name:string;
     surname:string;
@@ -22,6 +22,7 @@ export interface DatosRequest{
     ciudad: string;
     direccion: boolean;
     fechaEntrega: string;
+    url: string;
 }
 
 export interface DatosUser{
@@ -31,4 +32,5 @@ export interface DatosUser{
     email:string;
     numOrder:number;
     description:string;
+   
 }

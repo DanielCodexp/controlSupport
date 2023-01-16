@@ -85,20 +85,20 @@
         <h2>Selecciona servicio Solicitado</h2>
     
         <div class="row pt-5 pb-5">
-          <div class="col-md-6 pb-3">
+          <div class="col-md-6 pb-3" *ngFor="let item of cars">
             <div class="card text-center">
               <div class="card-header">
-                Problemas con impresora
+                {{item.carBrand}}
               </div>
               <div class="card-body">
              
                 <div class="d-flex flex-column">
     
                   <div class="p-2">
-                    <img src="/assets/img/login.jpg" class="img-carga" alt="">
+                    <img [src]="item.url" class="img-carga" alt="">
                   </div>
                   <div class="p-2">
-                    <button class="btn btn-reservar btn-primary" (click)="reservar('nombre del servicio')">Seleccionar</button>
+                    <button class="btn btn-reservar btn-primary" (click)="reservar(item.carBrand,item.url)">Seleccionar</button>
                   </div>
                 </div>
               </div>
@@ -171,7 +171,7 @@
           </div>
         </div>
         <div class="col-lg-5">
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column" *ngFor="let item of datos">
             <div class="p-1">
               <p style="font-size: 17px; font-weight: bold;">Lugar y fecha</p>
   
@@ -186,10 +186,10 @@
   
               <div class="row">
                 <div class="col-md-6 p-2">
-                  <p class="pt-1">Nombre del servicio</p>
+                  <p class="pt-1">{{item.auto}}</p>
                 </div>
                 <div class="col-md-6 p-2 d-flex justify-content-center">
-                  <img src="/assets/img/login.jpg" class="img-car-modal" alt="">
+                  <img [src]="item.url" class="img-car-modal" alt="">
                 </div>
               </div>
   
